@@ -1,0 +1,254 @@
+<style lang="less">
+  .page-search-wrapper {
+    height: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    .top-wrapper {
+      height: 50px;
+      background-color: #FFFF33;
+      box-sizing: border-box;
+      .top-interact-container {
+        padding-top: 12px;
+        .city-area-box {
+          display: inline-block;
+          width: 60px;
+          vertical-align: top;
+          font-size: 14px;
+          padding-top: 2px;
+          padding-left: 12px;
+          margin-right: 16px;
+          .city-icon {
+            display: inline-block;
+            vertical-align: top;
+            width: 20px;
+            height: 20px;
+            padding-top: 4px;
+          }
+          .city-text {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 4px;
+            font-size: 18px;
+          }
+        }
+        .search-input-box {
+          display: inline-block;
+          vertical-align: top;
+          position: relative;
+          width: 240px;
+          height: 30px;
+          line-height: 36px;
+          background-color: rgba(0, 255, 255, .325);
+          border-radius: 16px;
+          font-size: 14px;
+          color: #330066;
+          box-sizing: border-box;
+          padding-right: 30px;
+          padding-left: 36px;
+          .search-input {
+            width: 100%;
+            height: 100%;
+            line-height: 36px;
+          }
+          .search-icon {
+            position: absolute;
+            top: 5px;
+            left: 8px;
+          }
+        }
+        .filter-skip-btn {
+          display: inline-block;
+          vertical-align: top;
+          padding-left: 8px;
+          margin-left: 8px;
+          .filter-icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            vertical-align: top;
+          }
+        }
+      }
+    }
+    .banner-wrapper {
+      height: 80px;
+      background-color: #fff;
+      border-bottom: 1px solid #F8F8FF;
+      box-sizing: border-box;
+    }
+    .day-wrapper {
+      height: 70px;
+      background-color: #fff;
+      border-bottom: 10px solid #F8F8FF;
+      box-sizing: border-box;
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: stretch;
+      .day-item {
+        flex: auto;
+        text {
+          display: block;
+          text-align: center;
+          font-size: 12px;
+          color: #999;
+          line-height: 60px;
+        }
+      }
+      .day-highlight {
+        background-color: #00FF80;
+        text {
+          color: #fff;
+        }
+      }
+    }
+    .list-wrapper {
+      .list-item {
+        height: 112px;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-bottom: 1px solid #F8F8FF;
+        padding: 0 12px;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="page-search-wrapper">
+    <view class="top-wrapper">
+      <view class="top-interact-container">
+        <view class="city-area-box">
+          <text class="city-text">杭州</text>
+          <image class="city-icon" mode="aspectFit" src="./images/black-down-arrow.png"></image>
+        </view>
+        <view class="search-input-box">
+          <input type="text" class="search-input" confirm-type="search" />
+          <icon type="search" class="search-icon" size="16" />
+        </view>
+        <navigator class="filter-skip-btn" url="../setting/setting">
+          <image class="filter-icon" mode="aspectFit" src="./images/black-filter.png"></image>
+        </navigator>
+      </view>
+    </view>
+    <view class="banner-wrapper"></view>
+    <view class="day-wrapper">
+      <view class="day-item {{item.highlight ? 'day-highlight' : ''}}" wx:for="{{dayOptions}}" wx:key="index" data-index="{{index}}" data-item="{{item}}" bindtap="handleDayChange">
+        <text>{{item.dayText}}</text>
+      </view>
+    </view>
+    <scroll-view scroll-y class="list-wrapper" style="height: {{scrollContainerHeight}}px">
+      <view class="list-item" wx:for="{{list}}" wx:key="index">{{item}}</view>
+    </scroll-view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+export default class SearchPage extends wepy.page {
+  data = {
+    dayOptions: [],
+    list: [
+      '11111111111111111111111111111111111111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '11111111111111111111111111111111111111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111',
+      '111'
+    ],
+    scrollContainerHeight: 0
+  }
+  methods = {
+    handleDayChange(e) {
+      console.log('aaa', e.currentTarget)
+      const { index } = e.currentTarget.dataset
+      this.dayOptions.forEach((m, i) => {
+        m.highlight = i === index
+      })
+    }
+  }
+  displayDayOptions() {
+    const oDay = new Date().getDay()
+    const oArr = []
+    for (let i = oDay; i < 7; i++) {
+      oArr.push(i)
+    }
+    console.log('oArr1', oArr)
+    for (let i = 0; i < (8 - oDay); i++) {
+      oArr.push(i)
+    }
+    console.log('oArr2', oArr)
+    const configs = {
+      1: '周一',
+      2: '周二',
+      3: '周三',
+      4: '周四',
+      5: '周五',
+      6: '周六',
+      0: '周日'
+    }
+    const dayOptions = oArr.map(m => {
+      return {
+        highlight: m === oDay,
+        dayText: configs[m],
+        dayIndex: m
+      }
+    })
+    this.dayOptions = dayOptions
+    console.log('111', this)
+  }
+  onLoad() {
+    const that = this
+    wx.getSystemInfo({
+      success(res) {
+        console.log(res.windowHeight)
+        that.scrollContainerHeight = res.windowHeight - 70 - 80
+      },
+      complete() {
+        console.log(that.scrollContainerHeight)
+      }
+    })
+    this.displayDayOptions()
+  }
+}
+</script>

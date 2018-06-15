@@ -1,0 +1,15 @@
+{
+	"description": "for searching credit card related discount information",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxa76f309466cb4cc9",
+	"projectname": "card",
+	"miniprogramRoot": "./dist",
+	"condition": {}
+}

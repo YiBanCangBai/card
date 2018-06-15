@@ -1,0 +1,13 @@
+<style lang="less">
+</style>
+<template>
+  <view>setting</view>
+</template>
+<script>
+import wepy from 'wepy'
+export default class SettingPage extends wepy.page {
+  data = {}
+  methods = {}
+  onLoad() {}
+}
+</script>
